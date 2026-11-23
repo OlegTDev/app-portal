@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -68,10 +69,10 @@ class Employee extends Model
     /**
      * Created items across all models.
      */
-    public function createdItems(): HasMany
+    public function createdItems(): Builder
     {
-        return $this->hasMany(News::class, 'created_by')
-            ->union($this->hasMany(Department::class, 'created_by'))
-            ->union($this->hasMany(MenuItem::class, 'created_by'));
+        return $this->hasMany(News::class, 'created_by')->getQuery()
+            ->union($this->hasMany(Department::class, 'created_by')->getQuery())
+            ->union($this->hasMany(MenuItem::class, 'created_by')->getQuery());
     }
 }

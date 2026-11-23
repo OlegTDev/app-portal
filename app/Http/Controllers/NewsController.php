@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\PortalUser;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -49,15 +50,22 @@ class NewsController extends Controller
     public function like(string $id): \Symfony\Component\HttpFoundation\JsonResponse
     {
         $news = News::findOrFail($id);
-        $employee = auth()->user('portal')?->employee;
+        /** @var \App\Models\PortalUser|null $user */
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $employee = $user->employee;
 
         if (!$employee) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $like = \App\Models\Like::where('employee_id', $employee->id)
+        $like = \App\Models\Like::where('employee_id', $employee->getKey())
             ->where('likable_type', News::class)
-            ->where('likable_id', $news->id)
+            ->where('likable_id', $news->getKey())
             ->first();
 
         if ($like) {
@@ -65,9 +73,9 @@ class NewsController extends Controller
             $liked = false;
         } else {
             \App\Models\Like::create([
-                'employee_id' => $employee->id,
+                'employee_id' => $employee->getKey(),
                 'likable_type' => News::class,
-                'likable_id' => $news->id,
+                'likable_id' => $news->getKey(),
             ]);
             $liked = true;
         }

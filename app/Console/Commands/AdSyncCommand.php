@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Services\LdapService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AdSyncCommand extends Command
 {
@@ -99,7 +100,7 @@ class AdSyncCommand extends Command
             }
         } catch (\Exception $e) {
             $this->error('AD sync failed: ' . $e->getMessage());
-            \Log::error('AD sync error: ' . $e->getMessage());
+            Log::error('AD sync error: ' . $e->getMessage());
             return Command::FAILURE;
         }
 

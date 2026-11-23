@@ -41,7 +41,7 @@ class AuthServiceProvider extends ServiceProvider
                 $direct = \Illuminate\Support\Facades\DB::table('access_group_employee')
                     ->join('access_groups', 'access_group_employee.access_group_id', '=', 'access_groups.id')
                     ->where('access_groups.unique_key', $uniqueKey)
-                    ->where('access_group_employee.employee_id', $employee->id)
+                    ->where('access_group_employee.employee_id', $employee->getKey())
                     ->where(fn ($q) => $q->whereNull('access_group_employee.expired_at')
                         ->orWhere('access_group_employee.expired_at', '>', now()))
                     ->exists();

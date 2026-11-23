@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Tags\HasTags;
 
@@ -48,14 +48,14 @@ class News extends Model
     /**
      * Activity log options.
      */
-    protected static string $logExcept = ['visits_count'];
+    protected static array $logExcept = ['visits_count'];
 
-    public function getActivitylogOptions(): \Spatie\ActivityLog\LogOptions
+    public function getActivitylogOptions(): \Spatie\Activitylog\Support\LogOptions
     {
-        return \Spatie\ActivityLog\LogOptions::defaults()
+        return \Spatie\Activitylog\Support\LogOptions::defaults()
             ->logOnly(['title', 'summary', 'body', 'is_enabled', 'on_main_page', 'published_at', 'expired_at'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /**
