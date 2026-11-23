@@ -40,7 +40,7 @@
 - JSON-ответ: `return response()->json(...)`
 
 ### 2.4. React-компоненты (Inertia)
-- Каждый компонент — отдельный файл в `resources/js/Pages/{Module}/`
+- Каждый компонент — отдельный файл в `resources/ts/pages/{Module}/`
 - Именование: `Index.tsx`, `Show.tsx`, `Form.tsx`
 - Типы props — через interface (TypeScript)
 - Ant Design: `import { Table, Button } from 'antd'`
@@ -65,7 +65,7 @@
 - **Теги:** `spatie/laravel-tags` (для новостей).
 - **Роли/разрешения:** `spatie/laravel-permission`. Модель: `PortalUser`.
 - **Иерархии:** `kalnoy/nestedset` (меню, категории). Поля: `_lft`, `_rgt`, `parent_id`.
-- **LDAP:** `adldap2/adldap2-laravel`.
+- **LDAP:** `directorytree/ldaprecord-laravel`.
 
 ## 4. Запреты
 
