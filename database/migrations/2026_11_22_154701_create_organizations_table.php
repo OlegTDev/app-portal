@@ -23,7 +23,11 @@ return new class extends Migration
             $table->timestampTz('created_at')->useCurrent();
             $table->timestampTz('updated_at')->useCurrent();
             $table->timestampTz('ended_at')->nullable()->comment('Дата окончания деятельности');
+        });
 
+        DB::table('organizations')->insert([]); // Ensure table exists
+
+        Schema::table('organizations', function (Blueprint $table) {
             $table->foreign('parent_code')
                 ->references('code')->on('organizations')
                 ->nullOnDelete();
