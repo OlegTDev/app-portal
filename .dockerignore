@@ -1,0 +1,50 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Dependency directories
+vendor/
+node_modules/
+
+# PHP
+.phpunit.result.cache
+vendor.json
+
+# Environment
+.env
+!.env.docker
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+storage/logs/*.log
+npm-debug.log
+yarn-error.log
+
+# Build
+public/hot
+public/storage
+dist
+vendor
+
+# Docker
+docker-compose.override.yml
+
+# Testing
+coverage/
+.phpunit/
+
+# Temporary files
+tmp/
+temp/

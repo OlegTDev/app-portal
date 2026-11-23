@@ -1,0 +1,79 @@
+services:
+    # PHP-FPM приложение
+    app:
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        container_name: app-portal-app
+        volumes:
+            - .:/var/www:cached
+            - ./.env.docker:/var/www/.env
+        environment:
+            - APP_ENV=${APP_ENV:-local}
+            - APP_DEBUG=${APP_DEBUG:-true}
+        networks:
+            - app-portal
+        depends_on:
+            - postgres
+            - redis
+
+    # Nginx
+    nginx:
+        build:
+            context: ./docker/nginx
+            dockerfile: Dockerfile
+        container_name: app-portal-nginx
+        ports:
+            - "8000:80"
+        volumes:
+            - .:/var/www:cached
+            - ./docker/nginx/logs:/var/log/nginx
+        networks:
+            - app-portal
+        depends_on:
+            - app
+
+    # PostgreSQL
+    postgres:
+        image: postgres:17-alpine
+        container_name: app-portal-postgres
+        environment:
+            POSTGRES_DB: ${DB_DATABASE:-app_portal}
+            POSTGRES_USER: ${DB_USERNAME:-app_portal}
+            POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        networks:
+            - app-portal
+        command: >
+            -c max_connections=100
+            -c shared_buffers=256MB
+            -c effective_cache_size=768MB
+            -c maintenance_work_mem=64MB
+            -c checkpoint_completion_target=0.9
+            -c wal_buffers=16MB
+            -c default_statistics_target=100
+
+    # Redis
+    redis:
+        image: redis:7-alpine
+        container_name: app-portal-redis
+        ports:
+            - "6379:6379"
+        volumes:
+            - redis_data:/data
+        networks:
+            - app-portal
+        command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+
+networks:
+    app-portal:
+        driver: bridge
+
+volumes:
+    postgres_data:
+        driver: local
+    redis_data:
+        driver: local
