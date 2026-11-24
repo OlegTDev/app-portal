@@ -67,10 +67,7 @@ class LoginController extends Controller
         // Find or create portal user
         $portalUser = PortalUser::updateOrCreate(
             ['employee_id' => $employee->id],
-            [
-                'default_organization_code' => $employee->organization_code,
-                'current_organization_code' => $employee->organization_code,
-            ]
+            ['organization_code' => $employee->organization_code]
         );
 
         // Check if blocked
