@@ -53,10 +53,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('employees', function (Blueprint $table) {
-            $table->dropIfExists('employees_search_update');
-        });
-
         DB::statement("DROP TRIGGER IF EXISTS employees_search_update ON employees");
         DB::statement("DROP INDEX IF EXISTS employees_search_idx");
         DB::statement("ALTER TABLE employees DROP COLUMN IF EXISTS search_vector");

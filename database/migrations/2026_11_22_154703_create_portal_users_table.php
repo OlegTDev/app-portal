@@ -17,8 +17,7 @@ return new class extends Migration
             $table->uuid('employee_id')->unique();
             $table->string('password')->nullable()->comment('bcrypt hash');
             $table->rememberToken();
-            $table->string('default_organization_code', 10)->nullable();
-            $table->string('current_organization_code', 10)->nullable();
+            $table->string('organization_code', 10)->nullable();
             $table->boolean('blocked')->default(false);
             $table->timestampTz('last_login_at')->nullable();
             $table->string('last_action_url')->nullable();
@@ -29,10 +28,7 @@ return new class extends Migration
             $table->foreign('employee_id')
                 ->references('id')->on('employees')
                 ->cascadeOnDelete();
-            $table->foreign('default_organization_code')
-                ->references('code')->on('organizations')
-                ->nullOnDelete();
-            $table->foreign('current_organization_code')
+            $table->foreign('organization_code')
                 ->references('code')->on('organizations')
                 ->nullOnDelete();
         });
