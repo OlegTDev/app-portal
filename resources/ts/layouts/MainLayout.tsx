@@ -72,7 +72,8 @@ export default function PortalLayout({ children, menu }: PortalLayoutProps) {
                     borderRadius: 8,
                     colorPrimary: '#1677ff',
                 },
-                algorithm: true as any,
+                cssVar: true,
+                hashed: false,
             }}
         >
             <Layout style={{ minHeight: '100vh' }}>
