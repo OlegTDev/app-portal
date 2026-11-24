@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Employee;
+use App\Services\FakeLdapService;
 use App\Services\LdapService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -29,21 +30,19 @@ class AdSyncCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle(LdapService $ldap): int
+    public function handle(): int
     {
-        $this->ldap = $ldap;
-
-        if (!config('ldap.enabled', true)) {
-            $this->warn('LDAP is disabled. Set LDAP_ENABLED=true in .env');
-            return Command::FAILURE;
-        }
+        // Use fake LDAP if real LDAP is disabled
+        $ldap = config('ldap.enabled', false)
+            ? app(LdapService::class)
+            : app(FakeLdapService::class);
 
         $this->info('Starting AD sync...');
         $start = microtime(true);
 
         try {
             // Get all active users from AD
-            $adUsers = $this->ldap->getAllActiveUsers();
+            $adUsers = $ldap->getAllActiveUsers();
 
             if (empty($adUsers)) {
                 $this->warn('No active users found in AD.');

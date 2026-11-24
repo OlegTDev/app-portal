@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\PortalUser;
+use App\Services\FakeLdapService;
 use App\Services\LdapService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -33,7 +34,10 @@ class LoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        $ldap = app(LdapService::class);
+        // Use fake LDAP if real LDAP is disabled
+        $ldap = config('ldap.enabled', false)
+            ? app(LdapService::class)
+            : app(FakeLdapService::class);
 
         // Authenticate via LDAP
         $userData = $ldap->authenticate($validated['username'], $validated['password']);

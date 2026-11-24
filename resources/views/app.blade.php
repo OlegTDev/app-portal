@@ -6,7 +6,6 @@
 
         <title inertia>{{ config('app.name', 'App Portal') }}</title>
 
-        @routes
         @vite(['resources/ts/app.tsx'])
         @inertiaHead
     </head>

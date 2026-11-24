@@ -2,26 +2,18 @@ import { Head, useForm, usePage } from '@inertiajs/react';
 import { Button, Form, Input, Card, Typography, Alert } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-declare global {
-    interface Window {
-        route: (name: string, params?: any) => string;
-    }
-}
-
 const { Title, Text } = Typography;
 
 export default function Login() {
-    const pageProps = usePage().props as Record<string, any>;
-    const flash = pageProps.flash || {};
+    const flash = usePage().props.flash || {};
 
     const { data, setData, post, processing, errors: formErrors } = useForm({
         username: '',
         password: '',
     });
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        post(window.route('login.store'));
+    const handleSubmit = (values: { username: string; password: string }) => {
+        post('/login');
     };
 
     return (
