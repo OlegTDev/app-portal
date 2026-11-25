@@ -17,8 +17,7 @@ class PortalUser extends Authenticatable
     protected $fillable = [
         'employee_id',
         'password',
-        'default_organization_code',
-        'current_organization_code',
+        'organization_code',
         'blocked',
         'last_login_at',
         'last_action_url',
@@ -44,19 +43,11 @@ class PortalUser extends Authenticatable
     }
 
     /**
-     * Default organization.
+     * Organization.
      */
-    public function defaultOrganization(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Organization::class, 'default_organization_code', 'code');
-    }
-
-    /**
-     * Current organization.
-     */
-    public function currentOrganization(): BelongsTo
-    {
-        return $this->belongsTo(Organization::class, 'current_organization_code', 'code');
+        return $this->belongsTo(Organization::class, 'organization_code', 'code');
     }
 
     /**

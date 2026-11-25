@@ -66,4 +66,12 @@ class MenuItem extends Model
     {
         return $query->where('is_enabled', true);
     }
+
+    /**
+     * Scope: order by root (lft) for top-level items.
+     */
+    public function scopeOrderRoot($query)
+    {
+        return $query->whereNull('parent_id')->orderBy('_lft');
+    }
 }
