@@ -26,3 +26,4 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 NEW_PORTAL_PROMPTS.md
+supervisord.pid
