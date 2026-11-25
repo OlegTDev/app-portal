@@ -11,7 +11,7 @@ import {
 
 declare global {
     interface Window {
-        route: (name: string, params?: any) => string;
+        route: (name: string, params?: Record<string, string | number>) => string;
     }
 }
 
@@ -44,8 +44,14 @@ interface PortalLayoutProps {
 
 export default function PortalLayout({ children, menu }: PortalLayoutProps) {
   const [collapsed, setCollapsed] = useState(false);
-  const pageProps = usePage().props as Record<string, any>;
-  const user = pageProps.auth?.user as AuthUser | null;
+  interface PageProps {
+    auth?: {
+      user: AuthUser | null;
+    };
+  }
+
+  const pageProps = usePage().props as PageProps;
+  const user = pageProps.auth?.user ?? null;
 
   const userMenuItems: MenuProps['items'] = user ? [
     {
@@ -72,8 +78,7 @@ export default function PortalLayout({ children, menu }: PortalLayoutProps) {
           borderRadius: 8,
           colorPrimary: '#1677ff',
         },
-        cssVar: true,
-        hashed: false,
+        cssVar: { key: 'antd' },
       }}
     >
       <Layout style={{ minHeight: '100vh' }}>

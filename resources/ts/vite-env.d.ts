@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 declare module 'virtual:*' {
-    const exports: Record<string, any>;
+    const exports: Record<string, unknown>;
     export default exports;
 }
 
@@ -11,5 +11,5 @@ interface ImportMetaEnv {
 
 interface ImportMeta {
     readonly env: ImportMetaEnv;
-    glob: (pattern: string) => Record<string, any>;
+    glob: (pattern: string) => Record<string, unknown>;
 }

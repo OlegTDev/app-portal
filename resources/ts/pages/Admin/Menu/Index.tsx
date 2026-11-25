@@ -127,7 +127,9 @@ export default function MenuIndex({ mainMenu, leftMenu }: MenuIndexProps) {
       okButtonProps: { danger: true },
       onOk: () => {
         destroy(`/admin/menu/${id}`, {
-          onSuccess: () => message.success('Пункт меню удалён'),
+          onSuccess: () => {
+            message.success('Пункт меню удалён');
+          },
         });
       },
     });
@@ -191,7 +193,7 @@ export default function MenuIndex({ mainMenu, leftMenu }: MenuIndexProps) {
     <>
       <Head title="Управление меню" />
 
-      <Space direction="vertical" size="large" style={{ width: '100%' }}>
+      <Space orientation="vertical" size="large" style={{ width: '100%' }}>
         <Title level={3}>Управление меню</Title>
 
         <Space>
@@ -231,7 +233,7 @@ export default function MenuIndex({ mainMenu, leftMenu }: MenuIndexProps) {
         onOk={handleSubmit}
         onCancel={() => setIsModalOpen(false)}
         confirmLoading={processing}
-        destroyOnClose
+        destroyOnHidden
       >
         <Form layout="vertical" style={{ marginTop: 20 }}>
           <Form.Item

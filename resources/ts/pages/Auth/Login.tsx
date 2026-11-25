@@ -5,14 +5,15 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 const { Title, Text } = Typography;
 
 export default function Login() {
-  const flash = usePage().props.flash || {};
+  const pageProps = usePage().props as { flash?: { error?: string; success?: string } };
+  const flash = pageProps.flash || {};
 
   const { data, setData, post, processing, errors: formErrors } = useForm({
     username: '',
     password: '',
   });
 
-  const handleSubmit = (values: { username: string; password: string }) => {
+  const handleSubmit = (_values: { username: string; password: string }) => {
     post('/login');
   };
 
@@ -54,7 +55,7 @@ export default function Login() {
 
           {flash.success && (
             <Alert
-              message={flash.success}
+              title={flash.success}
               type="success"
               showIcon
               style={{ marginBottom: 24 }}

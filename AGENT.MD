@@ -103,3 +103,12 @@
 ## 8. Отступы
 - для фронта (js, jsx, ts, css, html, scss) используй отступ в 2 пробела
 - для отсальных 4 пробела
+
+
+## 9. Проверки
+- проверяй код через линтер eslint и phpstan
+
+## 10. AntDesign
+- в Modal вместо destroyOnClose использовать destroyOnHidden
+- в Space вместо direction использовать orientation
+- в Alert вместо message использовать title

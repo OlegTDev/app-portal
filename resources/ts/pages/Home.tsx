@@ -24,7 +24,7 @@ export default function Home({ recentNews }: HomeProps) {
                 Единое пространство для сотрудников организации
       </Paragraph>
 
-      <Space direction="vertical" size="large" style={{ width: '100%' }}>
+      <Space orientation="vertical" size="large" style={{ width: '100%' }}>
         <Space wrap size="middle">
           <Card
             hoverable
