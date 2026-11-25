@@ -34,6 +34,7 @@ class HandleInertiaRequests
     {
         return [
             'auth' => function () use ($request) {
+                /** @var \App\Models\PortalUser|null $user */
                 $user = $request->user('portal');
 
                 if (!$user instanceof \App\Models\PortalUser) {
