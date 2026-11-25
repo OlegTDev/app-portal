@@ -15,9 +15,9 @@ class FakeLdapService
      * @var array<string, array> Test users
      */
     protected array $users = [
-        'Administrator' => [
-            'username' => 'Administrator',
-            'email' => 'administrator@domain.local',
+        'admin' => [
+            'username' => 'admin',
+            'email' => 'admin@domain.local',
             'full_name' => 'Администратор Домена',
             'position' => 'System Administrator',
             'phone' => '+7-000-000-0000',
@@ -25,7 +25,7 @@ class FakeLdapService
             'department_name' => 'IT',
             'is_active' => true,
             'ad_data' => [
-                'dn' => 'CN=Administrator,OU=Users,DC=domain,DC=local',
+                'dn' => 'CN=admin,OU=Users,DC=domain,DC=local',
                 'memberof' => ['CN=Domain Admins,CN=Users,DC=domain,DC=local'],
                 'account_control' => [
                     'raw' => 512,
