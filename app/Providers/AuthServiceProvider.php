@@ -12,8 +12,9 @@ class AuthServiceProvider extends ServiceProvider
      * The model to gate mappings.
      */
     protected $policies = [
-        // \App\Models\News::class => \App\Policies\NewsPolicy::class,
-        // \App\Models\Department::class => \App\Policies\DepartmentPolicy::class,
+        \App\Models\News::class => \App\Policies\NewsPolicy::class,
+        \App\Models\Department::class => \App\Policies\DepartmentPolicy::class,
+        \App\Models\MenuItem::class => \App\Policies\MenuItemPolicy::class,
     ];
 
     /**

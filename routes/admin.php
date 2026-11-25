@@ -30,7 +30,11 @@ Route::middleware(['auth:portal'])->prefix('admin')->name('admin.')->group(funct
     });
 
     // Menu management
-    Route::get('/menu', MenuController::class)->name('menu.index');
+    Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
+    Route::post('/menu', [MenuController::class, 'store'])->name('menu.store');
+    Route::put('/menu/{id}', [MenuController::class, 'update'])->name('menu.update');
+    Route::delete('/menu/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
+    Route::post('/menu/reorder', [MenuController::class, 'reorder'])->name('menu.reorder');
 
     // Departments management
     Route::get('/departments', DepartmentsController::class)->name('departments.index');

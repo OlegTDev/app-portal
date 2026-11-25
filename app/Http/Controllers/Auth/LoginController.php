@@ -19,9 +19,21 @@ class LoginController extends Controller
     /**
      * Show the login form.
      */
-    public function create(): Response
+    public function create(): RedirectResponse|Response
     {
+        if (Auth::guard('portal')->check()) {
+            return redirect('/');
+        }
+
         return Inertia::render('Auth/Login');
+    }
+
+    /**
+     * Redirect if the user is authenticated.
+     */
+    public function redirectTo(): string
+    {
+        return route('login');
     }
 
     /**
@@ -85,8 +97,17 @@ class LoginController extends Controller
             'last_action_url' => request()->fullUrl(),
         ]);
 
-        // Log in via Sanctum session
-        Auth::login($portalUser, true);
+        // Log in via Sanctum session (portal guard)
+        Auth::guard('portal')->login($portalUser, true);
+
+        // Verify login was successful
+        if (!Auth::guard('portal')->check()) {
+            Log::error('Login failed: user not found after login');
+
+            return back()->withErrors([
+                'username' => 'Ошибка авторизации. Попробуйте ещё раз.',
+            ])->onlyInput('username');
+        }
 
         $request->session()->regenerate();
 
@@ -98,7 +119,7 @@ class LoginController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::logout();
+        Auth::guard('portal')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
