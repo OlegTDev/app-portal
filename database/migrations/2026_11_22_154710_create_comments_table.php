@@ -13,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
-            $table->uuid('employee_id');
+            $table->id();
+            $table->unsignedBigInteger('employee_id');
             $table->morphs('commentable');
             $table->text('body');
             $table->timestampTz('created_at')->useCurrent();

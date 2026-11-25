@@ -13,19 +13,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mentor_ways', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
+            $table->id();
             $table->string('name', 200);
             $table->timestampTz('created_at')->useCurrent();
             $table->timestampTz('updated_at')->useCurrent();
         });
 
         Schema::create('mentor_posts', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
-            $table->uuid('mentor_way_id');
+            $table->id();
+            $table->unsignedBigInteger('mentor_way_id');
             $table->string('organization_code', 10);
             $table->string('title', 500);
             $table->text('body');
-            $table->uuid('created_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->integer('likes_count')->default(0);
             $table->integer('comments_count')->default(0);
             $table->integer('visits_count')->default(0);
@@ -45,9 +45,9 @@ return new class extends Migration
         });
 
         Schema::create('mentor_role_assignments', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
+            $table->id();
             $table->string('role_name', 100);
-            $table->uuid('employee_id');
+            $table->unsignedBigInteger('employee_id');
             $table->timestampTz('created_at')->useCurrent();
 
             $table->foreign('employee_id')

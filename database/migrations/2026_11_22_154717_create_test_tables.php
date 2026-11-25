@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tests', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
+            $table->id();
             $table->string('name', 250);
             $table->text('description')->nullable();
             $table->timestampTz('started_at');
@@ -21,8 +21,8 @@ return new class extends Migration
             $table->smallInteger('attempts_limit')->nullable()->comment('Лимит попыток');
             $table->smallInteger('questions_count')->default(0);
             $table->smallInteger('time_limit_minutes')->nullable();
-            $table->uuid('created_by')->nullable();
-            $table->uuid('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestampTz('created_at')->useCurrent();
             $table->timestampTz('updated_at')->useCurrent();
 
@@ -35,13 +35,13 @@ return new class extends Migration
         });
 
         Schema::create('test_questions', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
-            $table->uuid('test_id');
+            $table->id();
+            $table->unsignedBigInteger('test_id');
             $table->text('question_text');
             $table->smallInteger('question_type')->default(1)->comment('1: single, 2: multiple');
             $table->string('attach_file_path', 200)->nullable();
             $table->smallInteger('weight')->default(1);
-            $table->uuid('created_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->timestampTz('created_at')->useCurrent();
 
             $table->foreign('test_id')
@@ -53,8 +53,8 @@ return new class extends Migration
         });
 
         Schema::create('test_answers', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
-            $table->uuid('question_id');
+            $table->id();
+            $table->unsignedBigInteger('question_id');
             $table->text('answer_text');
             $table->string('attach_file_path', 200)->nullable();
             $table->smallInteger('weight')->default(1)->comment('Вес правильного ответа');
@@ -66,9 +66,9 @@ return new class extends Migration
         });
 
         Schema::create('test_results', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
-            $table->uuid('test_id');
-            $table->uuid('employee_id');
+            $table->id();
+            $table->unsignedBigInteger('test_id');
+            $table->unsignedBigInteger('employee_id');
             $table->string('organization_code', 10);
             $table->timestampTz('created_at')->useCurrent();
 

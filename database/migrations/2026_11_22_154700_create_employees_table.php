@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
+            $table->id();
             $table->string('username')->unique()->nullable()->comment('AD sAMAccountName');
             $table->string('email')->nullable();
             $table->string('full_name')->nullable()->comment('ФИО');

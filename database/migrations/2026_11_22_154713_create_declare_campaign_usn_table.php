@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('declare_campaign_usn', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
+            $table->id();
             $table->string('year', 4);
             $table->date('date')->comment('Дата ввода');
             $table->date('deadline')->comment('Срок уплаты');
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('np_reliable_count')->comment('НП, представившие верные Уведомления (ед.)');
             $table->integer('np_not_required_count')->comment('НП, которым Уведомление не требуется (ед.)');
             $table->decimal('accrued_amount', 15, 2)->nullable()->comment('Сумма начисленного налога, руб.');
-            $table->uuid('created_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->timestampTz('created_at')->useCurrent();
             $table->timestampTz('updated_at')->useCurrent();
 

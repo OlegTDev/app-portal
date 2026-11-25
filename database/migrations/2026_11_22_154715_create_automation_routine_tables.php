@@ -13,10 +13,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('automation_routine_downloads', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
-            $table->uuid('automation_routine_id');
+            $table->id();
+            $table->unsignedBigInteger('automation_routine_id');
             $table->string('filename', 500);
-            $table->uuid('employee_id');
+            $table->unsignedBigInteger('employee_id');
             $table->timestampTz('created_at')->useCurrent();
 
             $table->foreign('automation_routine_id')
@@ -28,10 +28,10 @@ return new class extends Migration
         });
 
         Schema::create('automation_routine_rates', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
-            $table->uuid('automation_routine_id');
+            $table->id();
+            $table->unsignedBigInteger('automation_routine_id');
             $table->smallInteger('rate')->comment('1-5');
-            $table->uuid('employee_id');
+            $table->unsignedBigInteger('employee_id');
             $table->timestampTz('created_at')->useCurrent();
 
             $table->foreign('automation_routine_id')
@@ -45,10 +45,10 @@ return new class extends Migration
         });
 
         Schema::create('automation_routine_feedbacks', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
-            $table->uuid('automation_routine_id');
+            $table->id();
+            $table->unsignedBigInteger('automation_routine_id');
             $table->string('result', 30)->comment('reject|accepted');
-            $table->uuid('employee_id');
+            $table->unsignedBigInteger('employee_id');
             $table->timestampTz('created_at')->useCurrent();
 
             $table->foreign('automation_routine_id')

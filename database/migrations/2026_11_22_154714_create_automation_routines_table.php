@@ -13,14 +13,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('automation_routines', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
+            $table->id();
             $table->string('title', 300);
             $table->text('description')->nullable();
             $table->string('region_mail_account', 300)->nullable()->comment('Реквизиты письма Управления');
             $table->string('owner_department', 250)->comment('Владелец (структурное подразделение)');
             $table->string('ftp_path', 250)->nullable();
-            $table->uuid('created_by')->nullable();
-            $table->uuid('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestampTz('created_at')->useCurrent();
             $table->timestampTz('updated_at')->useCurrent();
 

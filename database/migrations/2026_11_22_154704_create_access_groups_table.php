@@ -13,12 +13,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('access_groups', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
+            $table->id();
             $table->string('unique_key', 100)->unique()->comment('Ключ: meeting-vks-fns-editor');
             $table->string('title', 200);
             $table->text('note')->nullable();
-            $table->uuid('created_by')->nullable();
-            $table->uuid('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestampTz('created_at')->useCurrent();
             $table->timestampTz('updated_at')->useCurrent();
 

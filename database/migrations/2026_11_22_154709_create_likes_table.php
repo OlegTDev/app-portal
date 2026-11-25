@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
-            $table->uuid('employee_id');
+            $table->unsignedBigInteger('employee_id');
             $table->morphs('likable');
             $table->timestampTz('created_at')->useCurrent();
 

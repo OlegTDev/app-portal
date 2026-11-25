@@ -13,11 +13,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('news', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
+            $table->id();
             $table->string('title', 500);
             $table->text('summary')->nullable()->comment('Краткое описание');
             $table->text('body')->comment('Основной текст');
-            $table->uuid('category_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('organization_code', 10)->nullable();
             $table->string('department_name', 500)->nullable()->comment('Отдел (автор материала)');
             $table->date('published_at')->comment('Начало публикации');
@@ -28,8 +28,8 @@ return new class extends Migration
             $table->integer('likes_count')->default(0);
             $table->integer('comments_count')->default(0);
             $table->integer('visits_count')->default(0);
-            $table->uuid('created_by')->nullable();
-            $table->uuid('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestampTz('created_at')->useCurrent();
             $table->timestampTz('updated_at')->useCurrent();
             $table->timestampTz('deleted_at')->nullable();

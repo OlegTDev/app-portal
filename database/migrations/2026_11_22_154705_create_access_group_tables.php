@@ -13,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('access_group_employee', function (Blueprint $table) {
-            $table->uuid('access_group_id');
-            $table->uuid('employee_id');
+            $table->unsignedBigInteger('access_group_id');
+            $table->unsignedBigInteger('employee_id');
             $table->timestampTz('expired_at')->nullable();
             $table->timestampTz('created_at')->useCurrent();
             $table->primary(['access_group_id', 'employee_id']);
@@ -28,8 +28,8 @@ return new class extends Migration
         });
 
         Schema::create('access_group_ad_groups', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
-            $table->uuid('access_group_id');
+            $table->id();
+            $table->unsignedBigInteger('access_group_id');
             $table->string('group_dn', 200)->comment('DN группы в AD');
             $table->string('group_name', 100)->comment('Название группы для отображения');
             $table->timestampTz('expired_at')->nullable();

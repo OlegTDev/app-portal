@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('menu_items', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
+            $table->id();
             NestedSet::columns($table); // _lft, _rgt, parent_id
             $table->string('name', 100);
             $table->string('link', 500)->nullable();
@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('position', 10)->default('main')->comment('main|left');
             $table->integer('sort_order')->default(0);
             $table->boolean('is_enabled')->default(true);
-            $table->uuid('created_by')->nullable();
-            $table->uuid('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestampTz('created_at')->useCurrent();
             $table->timestampTz('updated_at')->useCurrent();
             $table->timestampTz('deleted_at')->nullable();

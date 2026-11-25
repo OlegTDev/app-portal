@@ -13,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('portal_users', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
-            $table->uuid('employee_id')->unique();
+            $table->id();
+            $table->unsignedBigInteger('employee_id')->unique();
             $table->string('password')->nullable()->comment('bcrypt hash');
             $table->rememberToken();
             $table->string('organization_code', 10)->nullable();

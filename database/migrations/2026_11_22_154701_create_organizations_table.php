@@ -39,6 +39,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        DB::table('organizations')->truncate();
         Schema::dropIfExists('organizations');
     }
 };
