@@ -1,4 +1,4 @@
-FROM php:8.4-fpm
+FROM php:8.5-fpm
 
 # Устанавливаем системные зависимости
 RUN apt-get update && apt-get install -y \
@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-enable redis \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     && docker-php-ext-install ldap \
+    && apt-get install -y supervisor \
     && rm -rf /var/lib/apt/lists/*
 
 # Устанавливаем Composer
@@ -40,5 +41,8 @@ WORKDIR /var/www
 # Порт для PHP-FPM
 EXPOSE 9000
 
-# Запускаем PHP-FPM
-CMD ["php-fpm"]
+# Копируем конфиг supervisor
+COPY docker/supervisord.conf /etc/supervisor/supervisord.conf
+
+# Запускаем supervisor (управляет php-fpm + scheduler)
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

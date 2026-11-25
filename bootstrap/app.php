@@ -26,4 +26,16 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+    })
+    ->withSchedule(function (\Illuminate\Console\Scheduling\Schedule $schedule): void {
+        // Sync employees from Active Directory
+        // Frequency is configurable via config('ad-sync.frequency') or AD_SYNC_FREQUENCY env variable
+        // Options: 'hourly', 'daily', or a cron expression like "0 2 * * *"
+        $frequency = config('ad-sync.frequency', 'daily');
+
+        match ($frequency) {
+            'hourly' => $schedule->command('ad:sync')->hourly(),
+            'daily' => $schedule->command('ad:sync')->daily(),
+            default => $schedule->command('ad:sync')->cron($frequency),
+        };
     })->create();
