@@ -121,6 +121,7 @@ export default function PortalLayout({ children, menu }: PortalLayoutProps) {
                             position: 'sticky',
                             top: 0,
                             zIndex: 10,
+                            borderBottom: '1px solid #f0f0f0',
                         }}
                     >
                         <Button
@@ -129,7 +130,14 @@ export default function PortalLayout({ children, menu }: PortalLayoutProps) {
                             onClick={() => setCollapsed(!collapsed)}
                             style={{ fontSize: '16px', width: 64, height: 32 }}
                         />
-                        <Title level={5} style={{ margin: 0 }}>
+                        {menu?.main && menu.main.length > 0 && (
+                            <Menu
+                                mode="horizontal"
+                                items={menu.main as MenuProps['items']}
+                                style={{ flex: 1, maxWidth: 600, border: 'none' }}
+                            />
+                        )}
+                        <Title level={5} style={{ margin: 0, flexShrink: 0 }}>
                             Корпоративный портал
                         </Title>
                         {user ? (
