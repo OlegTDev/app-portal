@@ -15,13 +15,18 @@ class EmployeeSearchController extends Controller
     {
         $query = $request->input('q', '');
 
-        if (strlen($query) < 2) {
+        if (mb_strlen($query) < 2) {
             return response()->json([]);
         }
 
         $employees = Employee::where('is_active', true)
-            ->whereRaw("search_vector @@ plainto_tsquery('russian', ?)", [$query])
-            ->orderByRaw("ts_rank(search_vector, plainto_tsquery('russian', ?)) DESC", [$query])
+            ->where(function ($q) use ($query) {
+                $q->where('full_name', 'ilike', "%{$query}%")
+                    ->orWhere('position', 'ilike', "%{$query}%")
+                    ->orWhere('phone', 'ilike', "%{$query}%")
+                    ->orWhere('email', 'ilike', "%{$query}%");
+            })
+            ->orderBy('full_name')
             ->limit(20)
             ->get([
                 'id', 'full_name', 'position', 'phone', 'phone_additional',
