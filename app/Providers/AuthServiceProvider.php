@@ -15,6 +15,8 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\News::class => \App\Policies\NewsPolicy::class,
         \App\Models\Department::class => \App\Policies\DepartmentPolicy::class,
         \App\Models\MenuItem::class => \App\Policies\MenuItemPolicy::class,
+        \App\Models\Organization::class => \App\Policies\OrganizationPolicy::class,
+        \App\Models\Employee::class => \App\Policies\EmployeePolicy::class,
     ];
 
     /**

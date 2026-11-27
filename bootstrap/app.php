@@ -20,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
             'auth:portal' => \Illuminate\Auth\Middleware\Authenticate::class,
+            'access' => \App\Http\Middleware\Access::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
