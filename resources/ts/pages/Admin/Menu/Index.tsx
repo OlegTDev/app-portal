@@ -20,6 +20,7 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from '@ant-design/icons';
+import AdminLayout from '@/layouts/AdminLayout';
 
 const { Title, Text } = Typography;
 
@@ -190,7 +191,7 @@ export default function MenuIndex({ mainMenu, leftMenu }: MenuIndexProps) {
   ];
 
   return (
-    <>
+    <AdminLayout>
       <Head title="Управление меню" />
 
       <Space orientation="vertical" size="large" style={{ width: '100%' }}>
@@ -310,6 +311,6 @@ export default function MenuIndex({ mainMenu, leftMenu }: MenuIndexProps) {
           </Form.Item>
         </Form>
       </Modal>
-    </>
+    </AdminLayout>
   );
 }

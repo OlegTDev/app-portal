@@ -7,6 +7,7 @@ import {
   CalendarOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
+import AdminLayout from '@/layouts/AdminLayout';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -36,7 +37,7 @@ interface EmployeeShowProps {
 
 export default function EmployeeShow({ employee }: EmployeeShowProps) {
   return (
-    <>
+    <AdminLayout>
       <Head title={`Сотрудник: ${employee.full_name || 'Профиль'}`} />
 
       <Space orientation="vertical" size="large" style={{ width: '100%' }}>
@@ -152,6 +153,6 @@ export default function EmployeeShow({ employee }: EmployeeShowProps) {
           </Descriptions>
         </Card>
       </Space>
-    </>
+    </AdminLayout>
   );
 }

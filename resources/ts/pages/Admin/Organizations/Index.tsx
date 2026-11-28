@@ -20,6 +20,7 @@ import {
   DeleteOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
+import AdminLayout from '@/layouts/AdminLayout';
 
 const { Title } = Typography;
 
@@ -185,7 +186,7 @@ export default function OrganizationsIndex({
   ];
 
   return (
-    <>
+    <AdminLayout>
       <Head title="Управление организациями" />
 
       <Space orientation="vertical" size="large" style={{ width: '100%' }}>
@@ -306,6 +307,6 @@ export default function OrganizationsIndex({
           </Form.Item>
         </Form>
       </Modal>
-    </>
+    </AdminLayout>
   );
 }

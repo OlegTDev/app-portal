@@ -17,6 +17,7 @@ import {
   PhoneOutlined,
   EnvironmentOutlined,
 } from '@ant-design/icons';
+import AdminLayout from '@/layouts/AdminLayout';
 
 const { Title, Text } = Typography;
 
@@ -161,7 +162,7 @@ export default function EmployeesIndex({
   ];
 
   return (
-    <>
+    <AdminLayout>
       <Head title="Сотрудники" />
 
       <Space orientation="vertical" size="large" style={{ width: '100%' }}>
@@ -226,6 +227,6 @@ export default function EmployeesIndex({
           />
         </Card>
       </Space>
-    </>
+    </AdminLayout>
   );
 }

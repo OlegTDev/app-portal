@@ -17,6 +17,7 @@ class HandleInertiaRequests
     public function handle(Request $request, Closure $next): Response
     {
         Inertia::share(array_merge($this->shareAuth($request), [
+            'isAdmin' => fn () => $request->is('admin/*'),
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
